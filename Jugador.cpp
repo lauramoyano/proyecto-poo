@@ -73,9 +73,10 @@ void Jugador::empezar()
 	}
 }
 
-
+/*
 
 void Jugador::agregarIndividuo(Individuo *individuo)
 {
 	lugares[0]->add_individuo(individuo);
 }
+*/
