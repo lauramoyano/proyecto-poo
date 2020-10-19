@@ -41,12 +41,11 @@ int main() {
   
 
 	Jugador jugador = Jugador();
-  
-	jugador.agregarIndividuo(Conejo);
+  /*
 	jugador.agregarIndividuo(Lechuga);
 	jugador.agregarIndividuo(Zorro);
 	jugador.agregarIndividuo(Robot);
 	jugador.empezar();
-  
+  */
 	return 0;
 }
