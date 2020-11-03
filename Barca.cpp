@@ -3,44 +3,54 @@
   Autor:David Velasco -Laura Moyano -Laura Suarez
   <laura.moyano@correounivalle.edu.co - velasco.david@correounivalle.edu.co -
   laura.liseth.suarez@correounivalle.edu.co
-  Fecha creación: 2020-09-1
-  Fecha última modificación: 2019-09-02
+  Fecha creación: 2020-10-10
+  Fecha última modificación: 2020-30-10
   Licencia: GNU-GPL
 */
 
 #include"Barca.h"
 
-Barca::Barca(string nombre, Orilla *orillaAdyacente, Orilla *orillaDelOtroLado):Lugar(nombre)
+Barca::Barca(string nombre, Lugar *orillaAdyacente, Lugar *orillaDelOtroLado):Lugar(nombre)
 {
-  nombre = nombre;
+  vecino=orillaAdyacente;
+  otraOrilla=orillaDelOtroLado;
 }
 
-bool Barca::estaLlena()
+Barca::~Barca()
+{
+  //ya se está eliminando en la clase base
+}
+
+
+bool Barca::hayEspacio()
 { 
-    if(individuos.size()> 2)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }   
+  if(individuos.size()>= 2)
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }   
 }
 
-string Barca::verificarOrillaAdyacente()
+
+
+void Barca::cambiarVecino()
 {
-  return orillaAdyacente->obtieneNombre();
+  Lugar *aux1 = nullptr;
+  Lugar *aux2 = nullptr;
+  aux1=vecino;
+  aux2=otraOrilla;
+
+  vecino=aux2;
+  otraOrilla=aux1;
+
 }
 
 
-void Barca::cambiarOrillas()
+Lugar* Barca::verVecino()
 {
-  Orilla *aux1 = nullptr;
-  Orilla *aux2 = nullptr;
-  aux1=orillaAdyacente;
-  aux2=orillaDelOtroLado;
-
-  orillaAdyacente=aux2;
-  orillaDelOtroLado=aux1;
-
+  return vecino;
 }
+

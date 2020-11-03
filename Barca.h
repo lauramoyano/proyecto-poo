@@ -3,19 +3,19 @@
   Autor:David Velasco -Laura Moyano -Laura Suarez
   <laura.moyano@correounivalle.edu.co - velasco.david@correounivalle.edu.co -
   laura.liseth.suarez@correounivalle.edu.co
-  Fecha creación: 2020-09-1
-  Fecha última modificación: 2019-09-02
+  Fecha creación: 2020-10-10
+  Fecha última modificación: 2020-30-10
   Licencia: GNU-GPL
 */
 /*
   Clase: Barca
-  Atributos:
+  Atributos: conoce el lugar vecino y el lugar que se encuentra al otro lado del rio.
   Funcionalidades:
-    - Puedo preguntarle si está llena
-    - Puedo moverla
-    - Puedo preguntarle la posicion
+    - Puedo preguntarle si tiene espacio
+    - Puedo saber cual es el lugar vecino
+    - Puedo cambiarle el lugar vecino
     - Además de todos los metodos de lugar
-  Relaciones: es parecido a un lugar, barca conoce a las orillas.
+  Relaciones: barca es un lugar
 */
 
 #include <iostream>
@@ -28,33 +28,32 @@
 
 class Barca : public Lugar
 {
-   protected:
+  protected:
    
-    Orilla *orillaAdyacente;
-    Orilla *orillaDelOtroLado;
+    Lugar *vecino;
+    Lugar *otraOrilla;
 
+  public:
+    //constructor
+    Barca(string nombre, Lugar *orillaAdyacente, Lugar *orillaDelOtroLado);
 
-   public:
-     //constructor
-     Barca(string nombre, Orilla *orillaAdyacente, Orilla *orillaDelOtroLado);
-
+    //Destructor
+    ~Barca();
     
-     //verifica si está llena
-     bool estaLlena ();
+    //verifica si hay espaio para otro individuo
+    bool hayEspacio ();
 
-     //verifica la posicion
-     string dondeEsta();
-
-     //mover la barca
-     void muevete();
+    //mover la barca
+    void muevete();
      
-     //verifica el nombre de la orilla en que está la barca
-     string verificarOrillaAdyacente();
+    //cambiar los punteros a las orillas
+    void cambiarVecino();
 
-     //cambiar los punteros a las orillas
-     void cambiarOrillas();
+    //obtiene el lugar vecino
+    Lugar *verVecino();
 
 };
+
 #else
 class Barca;
 #endif

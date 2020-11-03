@@ -3,60 +3,148 @@
   Autor:David Velasco -Laura Moyano -Laura Suarez
   <laura.moyano@correounivalle.edu.co - velasco.david@correounivalle.edu.co -
   laura.liseth.suarez@correounivalle.edu.co
-  Fecha creación: 2020-09-1
-  Fecha última modificación: 2019-09-02
+  Fecha creación: 2020-10-10
+  Fecha última modificación: 2019-10-30
   Licencia: GNU-GPL
 */
 
-#include <string>
-
 #include "Lugar.h"
-#include "Individuo.h"
-
+#include <iostream>
 using namespace std;
 
 
-Lugar::Lugar(string lugar_nombre) 
+Lugar::Lugar(string lugar_nombre ) 
 {
-  //individuos = vector <Individuo*>();
 	 nombre = lugar_nombre;
 }
 
+//elimina los puntos a individuo en cada lugar
 Lugar::~Lugar()
 {
-  //no hace nada
+  for(int i=0; i<individuos.size(); i++)
+  { 
+    delete individuos[i];
+    individuos[i]=nullptr;
+  }
+}
+
+Individuo* Lugar::verificarCadenaAlimenticia()
+{
+  for(int i=0; i<individuos.size(); i++)
+  {
+    Individuo *presa = individuos[i]->obtenerPresa();
+    if(presa != nullptr)
+    {
+      for(int j=0; j<individuos.size(); j++)
+      {
+        if(presa==individuos[j])
+        {
+          return individuos[i]; //retorna el individuo que depredador
+        }
+      }
+    }     
+  }
+  return nullptr;
 }
 
 string Lugar::obtieneNombre() 
 {
-	 return this->nombre;
+ return this->nombre;
+}
+
+string Lugar::obtieneNombre(int longitudMax)
+{
+  int diferencia= longitudMax - nombre.length();
+
+  return nombre + string(diferencia, ' ');//agrega los espacios que le faltan para ser igual a la longitudMax
+
 }
 
 
 void Lugar::add_individuo(Individuo *individuo) 
 {
    individuos.push_back(individuo);
+
 }
 
-Individuo Lugar::obtenerIndividuo(int index) 
+
+Individuo* Lugar::obtenerIndividuo(int index) 
 {
-    return *individuos[index];
+  if(index>=individuos.size())
+  {
+    Individuo *noHay = nullptr;
+    
+    return noHay;
+  }
+  return individuos[index];
 }
 
 
 
-bool Lugar::encontrarIndividuo(string letra)
+Individuo* Lugar::obtenerIndividuo(string letra)
 {
   for(int cualIndividuo = 0; cualIndividuo<individuos.size(); cualIndividuo++)
   {
     if(letra == individuos[cualIndividuo]->obtenerLetra())
-      return true;    
+    {    
+     return individuos[cualIndividuo];
+    }
   }
-  return false;
+  Individuo *noHay = nullptr;
+  return noHay;
+ 
 }
-
 
 int Lugar::size() 
 {
 	return individuos.size();
+}
+
+
+void Lugar::eliminarIndividuo(Individuo *individuo)
+{
+ for(int i=0;i<individuos.size();i++)
+ {
+   if(individuos[i]->obtenerNombre()==individuo->obtenerNombre())
+   {
+     individuos[i]=nullptr;
+     individuos.erase(individuos.begin()+i);
+   }
+ }
+  
+}
+
+Lugar* Lugar::verVecino()
+{
+  return nullptr;
+}
+
+void Lugar::cambiarVecino()
+{
+  //funcion que emplea polimorfismo
+}
+
+
+void Lugar::conocerBarca(Lugar *barca)
+{
+  //funcion que emplea polimorfismo
+}
+
+bool Lugar::hayEspacio()
+{
+  return true;
+}
+
+bool Lugar::robotEsta()
+{
+  for(int cual =0;cual<individuos.size();cual++)
+  {
+    if(individuos[cual]->obtenerLetra()=="R")
+    {
+      return true;
+      break;
+    }
+  }
+  return false;
+  
 }

@@ -3,8 +3,8 @@
   Autor:David Velasco -Laura Moyano -Laura Suarez
   <laura.moyano@correounivalle.edu.co - velasco.david@correounivalle.edu.co -
   laura.liseth.suarez@correounivalle.edu.co
-  Fecha creación: 2020-09-1
-  Fecha última modificación: 2019-09-02
+  Fecha creación: 2020-10-10
+  Fecha última modificación: 2020-10-30
   Licencia: GNU-GPL
 */
 
@@ -14,14 +14,15 @@ Individuo :: Individuo (string name, string orden, Individuo *puedo_comer)
 {
   letraDeOrden = orden;
   nombre = name;
-  puedo_comer = puedo_comer;
+  presa=puedo_comer;
   
 }
 
-Individuo::Individuo(string name, string letraDeOrden)
+Individuo::Individuo(string name, string orden)
 {
-  letraDeOrden = letraDeOrden;
+  letraDeOrden = orden;
   nombre = name;
+  presa = nullptr;
  
 }
 
@@ -36,8 +37,36 @@ string Individuo::obtenerNombre ()
   return nombre;
 }
 
+//obtiene el nombre del Individuo y le agrega espacios
+string Individuo::obtenerNombre(int longitudMax)
+{
+  int diferencia= longitudMax - nombre.length();
+
+  return nombre + string(diferencia, ' ');//agrega los espacios que le faltan para ser igual a la longitudMax
+
+}
+
 //obtiene la letra de orden del Individuo
 string Individuo::obtenerLetra()
 {
   return letraDeOrden;
+}
+
+//obtiene la presa de los individuos que se comen a otro
+Individuo* Individuo::obtenerPresa()
+{
+  return presa;
+}
+
+
+//verifica si el individuo se come a otro 
+bool ustedCome(Individuo individuo)
+{
+  Individuo *noTienePresa =nullptr;
+
+  if(individuo.obtenerPresa() != noTienePresa)
+  {
+    return true;
+  }
+  return false;
 }

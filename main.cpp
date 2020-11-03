@@ -1,8 +1,8 @@
 /*
   Archivo: main.cpp
   Autor: Laura Moyao- David Velasco- Laura Suarez <laura.moyano@correounivalle.edu.co>
-  Fecha creación: 2020-03-06
-  Fecha última modificación: 2020-10-06
+  Fecha creación: 2020-10-10
+  Fecha última modificación: 2020-10-30
   Licencia: GNU-GPL
 */
 
@@ -26,26 +26,39 @@
 
 using namespace std;
 
-int main() {
- 
+int main() 
+{
   
-  Individuo *Lechuga = new Individuo("Lechuga", "L");
-	Individuo *Conejo = new Individuo("Conejo", "C", Lechuga);
-	Individuo *Zorro = new Individuo("Zorro", "Z", Conejo);
-	Individuo *Robot = new Individuo("Robot", "R");
-
- 
+  Individuo *lechuga = new Individuo("Lechuga", "L");
+	Individuo *conejo = new Individuo("Conejo", "C", lechuga);
+	Individuo *zorro = new Individuo("Zorro", "Z", conejo);
+	Individuo *robot = new Individuo("Robot", "R");
+  //Individuo *robotcito = new Individuo("Robotcito", "L", zorro);
+  
+  
   Orilla *orilla_inicial= new Orilla("Izquierda");
   Orilla *orilla_final= new Orilla("Derecha");
-  Barca *barca = new Barca("barca", orilla_inicial, orilla_final);
-  
+  Barca *barca = new Barca("Barca", orilla_inicial, orilla_final);
 
-	Jugador jugador = Jugador();
-  /*
-	jugador.agregarIndividuo(Lechuga);
-	jugador.agregarIndividuo(Zorro);
-	jugador.agregarIndividuo(Robot);
-	jugador.empezar();
-  */
+  orilla_inicial->conocerBarca(barca);
+  orilla_final->conocerBarca(barca);
+  orilla_inicial->cambiarVecino();
+  
+	Jugador *laurita = new Jugador(orilla_inicial, orilla_final, barca);
+  
+  laurita->agregarIndividuo(lechuga);
+	laurita->agregarIndividuo(conejo);
+	laurita->agregarIndividuo(zorro);
+	laurita->agregarIndividuo(robot);
+  //laurita->agregarIndividuo(robotcito);
+  
+  
+	laurita->empezar();
+  
+  delete orilla_inicial;
+  delete orilla_final;
+  delete barca;
+  delete laurita;
+
 	return 0;
 }
